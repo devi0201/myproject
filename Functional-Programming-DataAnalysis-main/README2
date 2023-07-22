@@ -1,0 +1,62 @@
+MIRICA VICTOR-NICOLAE 324CB
+Taskset 2
+
+Task 1
+    In cadrul primului task am implementat functia getIndex, care intoarce indexul
+    unui element dintr-o lista.
+    In functia tsort, incep prin a verifica daca coloana primita se afla in antetul
+    tabelului. La urmatorul pas, verific daca aceasta coloana este una de String-uri
+    sau una de numere, folosind readMaybe, care, in caz de String, va intoarce Nothing.
+    In final, aleg una din cele doua functii similare: sortInt si sortString, care se folosesc
+    de sortBy pentru a sorta tabelul. Acesta va fi sortat de doua ori, a doua oara se verifica 
+    daca elementele sunt egal, caz in care se va face o sortare in functie de prima coloana (head).
+
+Task 2
+    Pentru taskul 2, verific prima oara daca antetele tabelelor sunt aceleasi, in caz contrar
+    intorc tabelul 1. Atlfel, pur si simplu concatenez (++) la finalul lui t1, tabelul t2, fara
+    header. (tail t2)
+
+Task 3
+    Pentru acest task, incep prin a verifica daca un tabel este mai mare ca celalalt, in caz de
+    egalitate, aplic un zipWith (++) pe cele doua tabele. Daca este o diferenta de dimensiuni,
+    va trebui sa extind tabelul mai mic.
+    Pentru extindere, ma voi folosi de 3 functii auxiliare care adauga atatea randuri in plus,
+    cat diferenta dintre lungimile celor doua tabele. Randurile formate o sa fie doar concatenare
+    succesiva a "", pana se va ajunge la lungimea headerului tabelului. In final, aceste linii noi
+    vor fi concatenate de asemenea la tabelul original.
+
+Task 4
+    Pentru task 4 trebuie sa ma asigur la inceput daca coloana dupa care fac table join se gaseste
+    in ambele tabele. Dupa care, creez noul header al tabelul, care va fi concatenarea celor doua
+    headere, din care voi scoate duplicatele (folosesc nub). 
+    Functia auxiliar getCommonCols, imi va intoarce coloanele comune intre cele doua tabele.
+    Functia checkElemInTable, intoarce True daca se gaseste elementul in intregul tabel.
+    Functie getRow intoarce randul pe care se afla o valoare intr-un tabel.
+    Iterez prin elementele din coloana care ma intereseaza din tabela 1. In cazul in care acesta
+    este unul comun (Se gaseste si in tabela 2), apelez functia joinRows, pentru a da overwrite
+    la coloanele din tabelul 1, care se gasesc si in tabelul 2. La final se va apele addRemainingCols,
+    care adauga coloanele ne-comune, din tabelul 2, la final.
+    In concluzie, caut elementele comune, ma uit in lista de coloane comune si suprascriu valorile
+    din tabelul 1 cu cele din tabelul 2. Odata ce am terminat de parcurs coloanele comune, adaug 
+    restul coloanelor necomune, din tabelul 2.
+    joinTables - cauta elementele comune in functie de coloana data, va apela functia joinRows
+    cu cele doua linii comune. (Cele doua linii vor fi trimise cu antetul tabelului respectiv
+    concatenat la inceput deoarece va trebui sa iteram prin lista de coloane comune).
+    joinRows - rescrie, element cu element, o linie. Aceasta va avea valorile din tabelul 2 in
+    cazul in care coloana se gaseste in ambele tabele. 
+    addRemainingCols - Adauga, la finalul unei linii, restul valorilor necomune din tabelul 2.
+
+Task 5
+    Pentru produsul cartezian, ma folosesc de o functie ajutatoare care va face produsul si ii
+    pun la inceput noul antet. Pentru produs, iterez prin liniile tabelului 1, si folosind un map,
+    aplic functia pe fiecare linie din tabelul 2.
+
+Task 6
+    Pentru task 6, voi itera prin liste de coloane, si voi extrage fiecare coloana intr-o lista.
+    folosesc functia getIndex pentru a lua doar elementele din coloana respectiva. La final tot ce
+    mai ramane de facut este sa transpun acest tabel.
+
+Task 7
+    Pentru filtrare, voi lua indexul coloanei cautate. Dupa aceasta, trec prin tabel, linie cu linie.
+    La fiecare linie verific daca se indeplineste conditia, caz in care concatenez linia la tabelul
+    final, caruia ii pun headerul initial.

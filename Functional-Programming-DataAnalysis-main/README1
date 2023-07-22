@@ -1,0 +1,66 @@
+MIRICA VICTOR-NICOLAE 324CB
+Taskset 1
+
+Task 1
+    Pentru acest task s-au folosit 3 functii auxiliare
+        floatList: transforma o lista de stringuri intr-una de floaturi
+        sumOfPerson: intoarce suma tuturor elementelor dintr-o lista
+        averageSteps: formateaza fiecare linie, primul element va fi
+                      numele persoanei, al doilea va fi media pasilor
+
+Task 2 
+    1.
+    Pentru prima parte se va folosi o functie auxiliara care primeste un rand
+    si intoarce True, daca suma pasilor este >= 1000, false altfel.
+    Functia recursiva get_passed_people_num va verifica fiecare linie cu functia
+    explicata mai sus, in cazul true, se va adauga 1.
+
+    2.
+    Pentru fucntia care intoarce procentul, se va calcula numarul de oameni de la pasul 1 
+    impartit la lungimea listei (nr de oameni)
+
+    3.
+    Similar, la pasul 3, se va calcula nr mediu de pasi zilnici pt toate persoanele. Se foloseste
+    si functia sumOfPerson, descrisa la Task 1.
+
+Task 3
+    Se va folosi o functie auxiliara stringList care transforma o lista de floaturi intr-una
+    de stringuri.
+    Prima oara vom creea o lista (rand) cu suma tuturor pasilor din acea ora, vom realiza acest
+    lucru cu ajutorul functiei zipWith. Dupa care, pentru a ajunge la media pasilor, vom imparti fiecare
+    element la numarul de persoane.
+
+Task 4
+    Doua functii auxiliare, care transforma o lista de Int in String si invers.
+    Vom aplica functia makeTable pe un tabel format din ultimele 3 elemente din fiecare linie
+    ("VeryActiveMinutes","FairlyActiveMinutes","LightlyActiveMinutes").
+    Functia makeTable va forma cele trei randuri ale tabelului ce trebuie obtinut apeland op 
+    pe fiecare coloana.
+    op testeaza element cu element, daca acesta este <50, <100, sau >=100 si va adauga 1
+    intr-o lista de tip [range1, range2, range3] in pozitia respectiva.
+
+Task 5
+    Vom sorta tabelul dupa coloana 2 (!!1) folosind functia sortBy.
+    Pentru o comparare corecta, valorile trebuie sa fie de tip Int, asadar acestea se vor
+    parsa prin read.
+    Dupa ce tabelul este sortat, vom lua doar primele 2 coloane folosind map (take 2).
+
+Task 6 
+    Am folosit o functie auxiliara sumFourElems care aduna doar primele 4 elemente dintr-o lista.
+    Vom sorta tabelul final in functie de coloana 4 (!!3) aceasta se va face folosind sortBy.
+    Pentru a ajunge la tabelul final, se va folosi functia createTable.
+    Functia lucreaza pe o linie. al 2-lea si al 3-lea element trebuie sa fie mediile primelor 4
+    respectiv ultimelor 4 elemente. Vom folosi functia sumFourElems descrisa mai sus, pe liste formate
+    din aceste elemente, dupa care vom imparti rezultatul la 4.
+    Pentru ultimul element (coloana 4), Ne va trebui diferenta. Acesta este (elem 2 - elem 3), in modul.
+
+Task 7
+    Pentru a aplica o functie pe fiecare element dintr-un tabel, vom apela un map intr-un map
+
+Task 8
+    1.
+    Vom plasa antetul tabelului (s) la inceput dupa care il vom adauga (:) la restul liniilor, pe care
+    vom aplica functia f (map f m)
+    2.
+    Pentru get_sleep_total, ne vom folosi de functia sumOfPerson, prezentata la Task 1, care face suma
+    unei linii. Aceasta va fi parsata ca string prin (printf “%.2f”).

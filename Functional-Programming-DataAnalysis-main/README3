@@ -1,0 +1,111 @@
+MIRICA VICTOR-NICOLAE 324CB
+Taskset 3
+
+Task 1
+    In cadrul task-ului 1 trebuie sa inrolez Query in clasa Eval. Pentru ca sa
+    putem sa inlantuim mai multe eval pe un query, si pentru ca functia eval intoarce
+    un QResult, am implementat o functie care parseaza acest QResult si intoarce un Tabel.
+    (In cazul in care QResult este o lista, este intors un tabel cu un singur rand).
+    FromTable - Intoarce Tabelul dat
+    AsList - Ma folosesc de functia deja implementata la TaskSet 2, columnAsList
+    Sort - aplic functia tsort pe query-ul dat
+    ValueMap - aplic functia vmap
+    RowMap - aplic functia rmap
+    VUnion - aplic functia vuinion
+    HUnion - aplic functia hunion
+    TableJoin - aplic functia tjoin
+    Cartesian - aplic functia cartesian
+    Projection - aplic functia projection
+
+Task 2
+    Pentru task-ul 2, Scriem instantele pentru FEAval de String si de Float. Diferenta dintre
+    cele doua tipuri este ca, in cazul tipului Float, vom transforma elementul citit
+    de pe linie (un String) in float, folosind read::Float, pentru ca acesta sa fie comparat
+    corect cu ref-ul (care este de tip Float).
+    Deoarece functia FEval trebuie sa intoarca o functie de tip FilterOp, vom utiliza lambda 
+    expressions la valoarea intoarsa. De asemenea, functia feval primeste si o lista, care
+    este capul tabelui.
+    Eq - din linia x, preiau elementul aflat pe coloana data. Folosesc functia getIndex,
+    implementata in TaskSet 1, pentru a gasi indexul coloanei cautate. Verific daca elementul
+    este egal cu ref.
+    Lt - Preiau elementul, in mod identic cu Eq, verifica ca acesta sa fie mai mic ca ref
+    Gt - Identic ca si Lt, doar ca verific ca elementul sa fie mai mare
+    In - Odata ce preiau elementul, folosesc functia elem, care verifica daca acesta este
+         in lista list
+    FNot - aplic feval pe conditia data, dupa care neg rezultatul. echivalent cu
+           (\x -> not ((feval head cond) x)) 
+    FieldEq - preiau cele doua elemente, de pe coloana 1 si coloana 2. Verific daca acestea
+              sunt egale.
+
+Task 3
+    Trebuie sa inrolez Filter in Eval. Pentru aceasta, am functia filterTable, implementata la 
+    ultimul task din TaskList2. Problema este ca aceasta functie primeste o valoare si intoarce
+    un bool, dar noi vrem sa primim o intreaga linie si sa intoarcem un bool. Asadar, am creat
+    functia filterTable3, care este indentica cu aceea descrisa in readme-ul din taskSet2, doar ca
+    in loc sa verifice fiecare element din tabel, aceasta va parcurge tabelul linie cu linie, 
+    selectand doar liniile carew verifica conditia.
+
+Task 4
+    Pentru task-ul 4, a trebuit sa inrolez Graph in Eval. Stim ca header-ul tabelului final
+    trebuie sa fie intotdeauna ["From", "To", "Value"], asadar o sa incepem prin a "hardcoda" 
+    aceasta linie la inceput. In continuare, o sa creez functia graphTable, ce primeste
+    o functie de tipul EdgeOp (Primeste doua linii, intoarce un Maybe Value), doua tabele, care 
+    in practica vor fi acelasi tabel (Cand se va apela functia, t1 = t2).
+    Functia mai primeste un acumulator, in care vom retine tabelul ca dupa ce terminam o iteratie
+    sa putem sa reapelam.
+    graphTable aplica op intre fiecare doua linii din tabel, deci, la final, vom aplica op intre
+    toate liniile tabelului. In cazul in care liniile sunt identice, nu vom aplica op pe ele,
+    vom trece la urmatoare iteratie. In cazul in care op ne va da Nothing, atunci valorile de 
+    pe cele doua linii nu constituie o linie din graf, deci trecem peste.
+    Altfel, in cazul in care op intoarce o valoare, atunci prima coloana din ambele linii va trebui
+    sa fie intordusa in graf, pe primele doua coloane ale grafului. Acestea trebuie introduse 
+    in ordine alfabetica asadar mai trebuie sa verificam si daca h1 mai mic sau mai mare decat h2,
+    introducandu-le corespunzator in graf. Pe ultima coloana (coloana 3), preluam valoarea lui op
+    folosind isJust si adaugam linia la graful final.
+
+Task 5
+    Pentru acest task, avem nevoie de o functie care calculeaza distanta dintre doua linii.
+    functia countDistance face exact asta, primeste doua linii si intoarce distanta ca un Int.
+    Iteram prin cele doua linii, comparand elementele de pe aceasi coloana. in cazul in care
+    acestea sunt egale, adaugam 1 la rezultatul final.
+    Deoarece Graph trebuie sa primeasca o functie de tip EdgeOp, o sa creem si o functie edgeOp,
+    care aplica countDistance pe cele doua linii. In cazul in care distanta este mai mica decat 5
+    aceasta va intoarce nothing, altfel, va intoarce Just (valoarea distantei).
+    Secventa de queries trebuie aplicata pe tabelul eight_hours, asadar incepem prin a aplica 
+    FromTable pe acesta, dupa care vom creea graful, aplicand Graph edgeOp pe rezultat.
+    In continuare, graful trebuie soratat dupa Value deci vom aplica Sort "Value".
+    Tot ce mai ramane de facut este sa scoatem intrarile (liniile) care nu contin un email,
+    in practica asta inseamna liniile care pe coloana "From" au valoarea "". Deci folosind
+    Filter cu conditia (FNot (Eq "From" "")) pe query-ul rezultat mai sus, ajungem la rezultatul
+    final.
+
+Task 6
+    Pentru acest task, trebuie sa corectez typo-urile dintr-o coloana a tabelului t1, avand valorile
+    corecte in coloana cu acelasi nume din tabelul t2. Aceste valori insa, nu sunt in aceeas ordine.
+    Pentru ca trebuie sa schimbam coloana din tabelul original cu cea corecta, am creat functia
+    replaceCol, care primeste un tabel, numele coloanei ce trebuie schimbata, si noua coloana.
+    Tabelul va fi transpus, i se va schimba linia in care primul element este colname, dupa care 
+    va fi transpus la loc.
+    Pentru noua coloana, cea corecta, vom implementa mai multe functii. Prima functie este correctTypos,
+    care primeste doua coloane, una cu typos si una cu valori corecte, si intoarce coloana corectata.
+    (In enunt, T si ref). Aceasta itereaza prin lista de valori cu typos, daca aceasta se gaseste in 
+    lista corecta, atunci este adaugata la lista finala, daca nu, atunci se va apela functia
+    matchTypo, care primeste o valoare, o lista (lista de valori corecte), un accumulator, in care
+    se va pastra valoarea corectata si un minim, care va fi folosit in functie pentru a decide 
+    ce mai mica distanta. Initial, functia va fi apelata cu min ca un numar mare, am decis 100.
+    matchTypo parcurge lista cu valori corecte pana la final, la fiecare iteratie, aceasta calculeaza
+    distanta dintre cele doua valori, in cazul in care gasim un nou minim, retinem noua valoare ca cea
+    corecta si noul minim. Pentru calcularea distantei, am descoperit distanta levenshtein, care 
+    prezinta exact ceea ce dorim, intre doua stringuri, numarul minim de operatii necesare pentru
+    a schimba stringul a in stringul b. Acest algoritm pentru calcularea distantei levenshtein 
+    va fi implementat folosind programare dinamica, pentru a accelera timpul de executare al 
+    taskului.
+    Dupa ca m-am informat deste acest algoritm si implementarea sa din diferite surse precum 
+    stackoverflow, wikipedia si wiki.haskell, am implementat o varianta cu programare dinamica.
+    M-am folosit de array-uri, pentru a forma "matricea" dp, matrice de marime (m x n), cele doua 
+    reprezentand lungimele celor doua striguri. In continuare, se vor compara, caracter cu caracter
+    cele doua stringuri, pana cand se va ajunge la valoarea din coltul dreapta-jos al matricii.
+    La fiecare iteratie, mai verific daca cele doua litere sunt egale, caz in care nu trebuie sa
+    adaug 1 la distanta pentru linia matricii la care ma aflu.
+
+
